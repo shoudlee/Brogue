@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 2551296429
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 45338b16d096b95e6bfe205bd49683a0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7fd7f576bbc4e2b777626502fe9f5517
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 45338b16d096b95e6bfe205bd49683a0
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: ddc908894080efb41bbd56d1d50ea506, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundle Assets/Zombie Meshes/Zombie Meshes.prefab
+Dependencies: []

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3113171919416911699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6688803298574984155}
+  - component: {fileID: 4796801286575060005}
+  m_Layer: 0
+  m_Name: Zombie Meshes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6688803298574984155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3113171919416911699}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.701912, y: -14.838293, z: -31.939688}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4796801286575060005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3113171919416911699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc908894080efb41bbd56d1d50ea506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NromalZombieMeshes:
+  - {fileID: 4300000, guid: eeba89d454c6195458504f2c6d45b8d8, type: 2}
+  - {fileID: 4300000, guid: cd81a800e465b1c46b994ae043e35884, type: 2}
+  - {fileID: 4300000, guid: 0d7099051a6ef3642990d4f1d0b18ba8, type: 2}
+  JumperZombieMeshes:
+  - {fileID: 4300000, guid: 3b9b233982af3cd48b01f3bf7b3ad57e, type: 2}
+  SpitterZombieMeshes:
+  - {fileID: 4300000, guid: 05c5559249b20064f8a896f2c2cfd784, type: 2}
