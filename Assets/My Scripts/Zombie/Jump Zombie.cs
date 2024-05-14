@@ -338,10 +338,10 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(jumpAttackCheckpoint.position, target.position);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.DrawLine(jumpAttackCheckpoint.position, target.position);
+    // }
 }
 }
 

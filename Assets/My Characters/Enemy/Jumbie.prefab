@@ -269,6 +269,7 @@ MonoBehaviour:
   defense: 0
   jumpAttackCoolDown: 10
   jumpAttackRange: 10
+  jumpAttackCheckpoint: {fileID: 259615828412767235}
   currentHp: 10
   maxHp: 10
   skinnedMeshRender: {fileID: 1058963636941784863}
