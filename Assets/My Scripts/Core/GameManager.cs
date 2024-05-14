@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public ABLoader aBloader;
     public UIManager uiManager;
+    public int highObstacleLayerMask;
 
     private void Awake()
     {
@@ -21,7 +22,10 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        highObstacleLayerMask = LayerMask.NameToLayer("High Obstacle");
     }
 
 }

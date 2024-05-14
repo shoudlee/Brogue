@@ -19,6 +19,8 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
     [SerializeField] private int defense;
     [SerializeField] private float jumpAttackCoolDown;
     [SerializeField] private int jumpAttackRange;
+
+    [SerializeField] private Transform jumpAttackCheckpoint;
     // [SerializeField] private float attckAgentStopTime;
     public int currentHp;
     [SerializeField] private int maxHp;
@@ -97,7 +99,24 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
             return;
         }
 
+       
+        // stopped by high obstacle
         float _distance = Vector3.Distance(transform.position, target.transform.position);
+        Vector3 dir = (target.transform.position - jumpAttackCheckpoint.position).normalized;
+        
+        RaycastHit[] hits = Physics.RaycastAll(jumpAttackCheckpoint.position, dir, _distance);
+        foreach (var hit in hits)
+        {
+            if (hit.collider.gameObject.layer == GameManager.Instance.highObstacleLayerMask)
+            {
+                // Debug.Log("stopped by high obstacle");
+                return;
+            }
+        }
+        
+        
+        
+        
         if ( _distance<= jumpAttackRange && _distance >= attackRange)
             
         {
@@ -317,6 +336,11 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         Destroy(animator);
         Destroy(agent);
         
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(jumpAttackCheckpoint.position, target.position);
     }
 }
 }
