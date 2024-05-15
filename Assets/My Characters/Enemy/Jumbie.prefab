@@ -267,8 +267,8 @@ MonoBehaviour:
   attackSpeed: 0.25
   attackPower: 1
   defense: 0
-  jumpAttackCoolDown: 10
-  jumpAttackRange: 10
+  jumpAttackCoolDown: 15
+  jumpAttackRange: 8
   jumpAttackCheckpoint: {fileID: 259615828412767235}
   currentHp: 10
   maxHp: 10

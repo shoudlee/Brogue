@@ -318,7 +318,7 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
     
     private IEnumerator CoroDeadRemoveLastComponents()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(1);
         Collider _collider = GetComponent<Collider>();
         Destroy(_collider);
         foreach (var _component in GetComponents<Component>())
