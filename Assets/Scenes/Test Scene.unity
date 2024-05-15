@@ -1465,6 +1465,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jumbie
       objectReference: {fileID: 0}
+    - target: {fileID: 1003606520353023076, guid: 7621238721865584eb271b7bb2d7c8d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2143,7 +2148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1393199282}
   m_Layer: 0
-  m_Name: Enemy GameObjects
+  m_Name: Test Enemys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
