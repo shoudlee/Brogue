@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ProjectileSpitbie : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider collider;
+    [SerializeField] private ProjectileSpitbieAffectedArea projectileSpitbieAffectedArea;
     
     // when this hit the ground, instantiate this area
     [SerializeField] private Transform affectedArea;
@@ -14,15 +16,17 @@ public class ProjectileSpitbie : MonoBehaviour
     
     // physical calculation parameters;
     // 重力加速度
-    [SerializeField] private float gravity = 9.8f;
-    // 发射角度
-    [SerializeField] private float firingAngle = 45.0f;
+    private float gravity = 9.81f;
     // xz速度 手动个控制
     [SerializeField] private float speedXZ = 2f;
-
+    
+    // test variable
+    [SerializeField] private Transform player;
+    
     private void Start()
     {
-        LaunchProjectile(new Vector3(-11,0.3f, 28));
+        LaunchProjectile(player.transform.position);
+        // Debug.Log(Time.time);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,25 +35,34 @@ public class ProjectileSpitbie : MonoBehaviour
             | other.gameObject.layer == GameManager.Instance.playerLayerMask
             | other.gameObject.layer == GameManager.Instance.playerBulletLayerMask) 
         {
+            // Debug.Log(Time.time);
+            Instantiate(projectileSpitbieAffectedArea, new Vector3(transform.position.x, -0.53f, transform.position.z),
+                Quaternion.identity);
+            
             Destroy(gameObject);
-            Debug.Log("instantiate the area!");
+        }else if (other.gameObject.layer == GameManager.Instance.highObstacleLayerMask)
+        {
+            Destroy(gameObject);
         }
     }
 
     // a spitbie throw this from his position to player's current position
     // spitbie instantiate a projector and call LaunchProjectile to player's current position just after
     // LaunchProjectile is used to calculate the velocity and set it to rigidbody
+    // it is not accurate! so i have to add a Random.Range(0, 10) to modify
     private void LaunchProjectile(Vector3 targetPosition)
     {
-        Vector3 projectileXZPosition = transform.position;
+        Vector3 projectileXZPosition = new Vector3(transform.position.x, 0f, transform.position.z);
         Vector3 targetXZPosition = new Vector3(targetPosition.x, 0f, targetPosition.z);
         float distance = Vector3.Distance(projectileXZPosition, targetXZPosition);
         float t = distance / speedXZ;
-
-        float speedY = (float)(transform.position.y - collider.radius + 0.5f * gravity * Math.Pow(t, 2)) / t;
-        Vector3 velocity = new Vector3(0, speedY, speedXZ);
-        transform.LookAt(new Vector3(targetXZPosition.x, transform.position.y, targetPosition.z));
+        // Debug.Log(t);
+        
+        float speedY = (-transform.position.y + gravity * t * t /2) / t;
+        Vector3 velocity = new Vector3(0, speedY + Random.Range(0, 10), speedXZ);
+        transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
         velocity = transform.TransformVector(velocity);
         rb.velocity = velocity;
     }
+    
 }
