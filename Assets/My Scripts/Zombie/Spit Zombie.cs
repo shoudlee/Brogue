@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using Brogue.Core;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +14,7 @@ namespace Brogue.Zombie
     
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Spitbie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombieAttackPower
+public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombieAttackPower
 {
 
     
@@ -26,6 +27,15 @@ public class Spitbie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombie
     // [SerializeField] private float attckAgentStopTime;
     public int currentHp;
     [SerializeField] private int maxHp;
+
+    [Space(10)] [Header("Spitbie Attributes")]
+    [SerializeField] private int spitRange;
+    [SerializeField] private int spitCoolDown;
+    [SerializeField] private Transform spitCheckPoint;
+    [SerializeField] private Transform spitableProjectile;
+    private float spitCounter;
+    
+    
     // meshes
     [SerializeField] private SkinnedMeshRenderer skinnedMeshRender;
     
@@ -55,6 +65,7 @@ public class Spitbie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombie
         minAttackingInterval = 1 / attackSpeed;
         attackingIntervalCounter = 0f;
         animator = GetComponent<Animator>();
+        spitCounter = 0;
 
         animatorWalkingString = Animator.StringToHash("WalkingSpeed");
         animatorDyingString = Animator.StringToHash("dying");
@@ -73,9 +84,50 @@ public class Spitbie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombie
     {
         StopHuntIfPlayerOutOfHuntingRange();
         AttackPlayerIfWithingAttackingRange();
+        TrySpitIfWithingSpitRange();
         CheckIfDead();
-        
+        spitCounter -= Time.deltaTime;
         // Debug.Log(agent.remainingDistance);
+    }
+
+    private void TrySpitIfWithingSpitRange()
+    {
+        if (!isHunting)
+        {
+            return;
+        }
+        if (spitCounter >= 0)
+        {
+            return;
+        }
+
+       
+        // stopped by high obstacle
+        float _distance = Vector3.Distance(transform.position, target.transform.position);
+        Vector3 dir = (target.transform.position - transform.position).normalized;
+        
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, dir, _distance);
+        foreach (var hit in hits)
+        {
+            if (hit.collider.gameObject.layer == GameManager.Instance.highObstacleLayerMask)
+            {
+                // Debug.Log("stopped by high obstacle");
+                return;
+            }
+        }
+
+        if ( _distance<= spitRange && _distance >= attackRange)
+            
+        {
+            Spit(target.transform.position);
+        }
+    }
+
+    
+    // to do
+    private void Spit(Vector3 transformPosition)
+    {
+        Debug.Log("spit");
     }
 
 

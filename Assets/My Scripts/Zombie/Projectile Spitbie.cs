@@ -20,14 +20,6 @@ public class ProjectileSpitbie : MonoBehaviour
     // xz速度 手动个控制
     [SerializeField] private float speedXZ = 2f;
     
-    // test variable
-    [SerializeField] private Transform player;
-    
-    private void Start()
-    {
-        LaunchProjectile(player.transform.position);
-        // Debug.Log(Time.time);
-    }
 
     private void OnTriggerEnter(Collider other)
     {

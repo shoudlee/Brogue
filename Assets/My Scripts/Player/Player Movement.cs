@@ -8,6 +8,7 @@ using UnityEngine.Rendering;
 using Brogue.Bullet;
 using UnityEngine.Animations.Rigging;
 using Brogue.UI;
+using UnityEngine.Assertions.Must;
 
 namespace Brogue.Player{
 public class PlayerMovement : MonoBehaviour, BattleProperties
@@ -30,6 +31,11 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
     public int defense;
 
     private bool isDead;
+    public bool inPoison;
+    public int poisonLevel;
+    public float movementAlter;
+    private Coroutine playerInPoisonCoro;
+    
     
     
     // input
@@ -64,6 +70,10 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
 
         canShoot = true;
         shootInterval = 1f / shootRate;
+        poisonLevel = -1;
+        inPoison = false;
+        playerInPoisonCoro = null;
+        movementAlter = 1;
     }
 
     private void Start()
@@ -223,8 +233,8 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
             
         }
 
-        animator.SetFloat(movementXString, currentSpeedWS);
-        animator.SetFloat(movementZString, currentSpeedAD);
+        animator.SetFloat(movementXString, currentSpeedWS * movementAlter);
+        animator.SetFloat(movementZString, currentSpeedAD * movementAlter);
     }
 
     private void FirePlayerMainGun()
@@ -318,6 +328,43 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
             // UIManager.Instance.ShowDefeatedUI();
         }
         
+    }
+
+    // 玩家中两个毒时，伤害取最高值
+    public void PlayerInPoison(int poisonLevel)
+    {
+        if (!inPoison)
+        {
+            inPoison = true;
+            this.poisonLevel = poisonLevel;
+            playerInPoisonCoro = StartCoroutine(CoroInPoison());
+        }else if (poisonLevel > this.poisonLevel)
+        {
+            this.poisonLevel = poisonLevel;
+        }
+    }
+
+    public void PlayerOutOfPoison(int poisonLevel)
+    {
+        if (inPoison && this.poisonLevel == poisonLevel)
+        {
+            inPoison = false;
+            this.poisonLevel = -1;
+            if (playerInPoisonCoro is not null)
+            {
+                StopCoroutine(playerInPoisonCoro);
+                playerInPoisonCoro = null;
+            }
+           
+        }
+    }
+    private IEnumerator CoroInPoison()
+    {
+        while (true)
+        {
+            GetHit(poisonLevel);
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
 }

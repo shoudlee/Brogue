@@ -149,7 +149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6497217225814959773
 Transform:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
   attackPower: 1
   defense: 0
   jumpAttackCoolDown: 15
-  jumpAttackRange: 8
+  jumpAttackRange: 7
   jumpAttackCheckpoint: {fileID: 259615828412767235}
   currentHp: 10
   maxHp: 10
