@@ -42,7 +42,7 @@ public class ProjectileSpitbie : MonoBehaviour
     // spitbie instantiate a projector and call LaunchProjectile to player's current position just after
     // LaunchProjectile is used to calculate the velocity and set it to rigidbody
     // it is not accurate! so i have to add a Random.Range(0, 10) to modify
-    private void LaunchProjectile(Vector3 targetPosition)
+    public void LaunchProjectile(Vector3 targetPosition)
     {
         Vector3 projectileXZPosition = new Vector3(transform.position.x, 0f, transform.position.z);
         Vector3 targetXZPosition = new Vector3(targetPosition.x, 0f, targetPosition.z);
@@ -56,5 +56,14 @@ public class ProjectileSpitbie : MonoBehaviour
         velocity = transform.TransformVector(velocity);
         rb.velocity = velocity;
     }
-    
+
+    public void EnableGravity()
+    {
+        rb.useGravity = true;
+    }
+
+    public void DisableGravity()
+    {
+        rb.useGravity = false;
+    }
 }

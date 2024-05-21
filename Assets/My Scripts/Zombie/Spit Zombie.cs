@@ -34,6 +34,7 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
     [SerializeField] private Transform spitCheckPoint;
     [SerializeField] private Transform spitableProjectile;
     private float spitCounter;
+    private ProjectileSpitbie spit;
     
     
     // meshes
@@ -53,6 +54,7 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
     private int animatorWalkingString;
     private int animatorDyingString;
     private int animatorAttackingString;
+    private int animatorSpitAttack;
 
     private void Awake()
     {
@@ -70,7 +72,8 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         animatorWalkingString = Animator.StringToHash("WalkingSpeed");
         animatorDyingString = Animator.StringToHash("dying");
         animatorAttackingString = Animator.StringToHash("attacking");
-        
+        animatorSpitAttack = Animator.StringToHash("spitAttack");
+
     }
 
     void Start()
@@ -119,17 +122,28 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         if ( _distance<= spitRange && _distance >= attackRange)
             
         {
-            Spit(target.transform.position);
+            SpitAttack();
+            spitCounter = spitCoolDown;
         }
     }
 
-    
-    // to do
-    private void Spit(Vector3 transformPosition)
+
+    private void SpitAttack()
     {
-        Debug.Log("spit");
+        spit = Instantiate(spitableProjectile,spitCheckPoint).GetComponent<ProjectileSpitbie>();
+        spit.transform.localPosition = Vector3.zero;
+        spit.DisableGravity();
+        animator.SetTrigger(animatorSpitAttack);
     }
 
+    // called by animator
+    public void AnimatorSpit()
+    {
+        spit.transform.parent = null;
+        spit.LaunchProjectile(target.position);
+        spit.EnableGravity();
+        spit = null;
+    }
 
     private void OnAnimatorMove()
     {
@@ -296,7 +310,7 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
 
     private IEnumerator CoroDeadRemoveLastComponents()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         foreach (var _component in GetComponents<Component>())
         {
             if (!(_component is Animator || _component is Transform || _component is NavMeshAgent))
