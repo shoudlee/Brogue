@@ -2003,6 +2003,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
         type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: bfa5f0a8fcfc24143ad972362c728f48, type: 2}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
       propertyPath: currentHp
       value: 100
       objectReference: {fileID: 0}
@@ -2013,9 +2018,54 @@ PrefabInstance:
       objectReference: {fileID: 195297592}
     - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
         type: 3}
+      propertyPath: getHitColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: getHitColor.b
+      value: 0.07778566
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: getHitColor.g
+      value: 0.07778566
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: getHitColor.r
+      value: 0.8679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: normalColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: normalColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: normalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: normalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805044956643820761, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
       propertyPath: mainPlayerCamera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 4384703643962885974, guid: 6a0065917d7e2c14cbccd504d00a8c80,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bfa5f0a8fcfc24143ad972362c728f48, type: 2}
     - target: {fileID: 4812699369091280215, guid: 6a0065917d7e2c14cbccd504d00a8c80,
         type: 3}
       propertyPath: m_Enabled

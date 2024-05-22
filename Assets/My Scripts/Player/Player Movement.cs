@@ -8,6 +8,7 @@ using UnityEngine.Rendering;
 using Brogue.Bullet;
 using UnityEngine.Animations.Rigging;
 using Brogue.UI;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine.Assertions.Must;
 
 namespace Brogue.Player{
@@ -23,6 +24,9 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
     [SerializeField] private float shootRate;
     [SerializeField] private NormalBullet bullet1;
     [SerializeField] private RigBuilder gunHoldRig;
+    [SerializeField] private Material material;
+    [SerializeField] private Color normalColor;
+    [SerializeField] private Color getHitColor;
     
     // battle properties
     public int playerMaxHp;
@@ -301,13 +305,25 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
             return;
         }
 
+        GetHitEffect();
         currentHp -= damage;
         if (currentHp <= 0)
         {
             Dead();
         }
     }
-    
+
+    private void GetHitEffect()
+    {
+        StartCoroutine(CoroGetHitChangeColor());
+    }
+
+    private IEnumerator CoroGetHitChangeColor()
+    {
+        material.color = getHitColor;
+        yield return new WaitForSeconds(0.4f);
+        material.color = normalColor;
+    }
     public int Defense()
     {
         return defense;
