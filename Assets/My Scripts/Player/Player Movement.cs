@@ -313,9 +313,11 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
         }
     }
 
+    // both sound and visual
     private void GetHitEffect()
     {
         StartCoroutine(CoroGetHitChangeColor());
+        // SFXManager.Instance.playerGetHitSFX
     }
 
     private IEnumerator CoroGetHitChangeColor()
