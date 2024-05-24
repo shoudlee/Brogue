@@ -259,11 +259,13 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
 
     public void GetHit(int damage)
     {
+        
         currentHp -= damage;
         if (currentHp < 0)
         {
             currentHp = 0;
         }
+        
     }
 
     public Transform GetPosition()
@@ -278,11 +280,9 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
             generator.zombieCount--;
             // Debug.Log("normal zombie die");
         }
-
-        
-
         
         animator.SetTrigger(animatorDyingString);
+        
         if (agent.enabled)
         {
             agent.isStopped = true;
@@ -310,7 +310,6 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
 
     private IEnumerator CoroDeadRemoveLastComponents()
     {
-        yield return new WaitForSeconds(3);
         foreach (var _component in GetComponents<Component>())
         {
             if (!(_component is Animator || _component is Transform || _component is NavMeshAgent))
@@ -323,6 +322,7 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
                 }
             }
         }
+        yield return new WaitForSeconds(2);
         Destroy(animator);
         Destroy(agent);
         
