@@ -16,6 +16,7 @@ public class NormalBullet : MonoBehaviour
 
     // components
     private Collider col;
+    private TrailRenderer trailRenderer;
 
 
     // properties
@@ -28,6 +29,8 @@ public class NormalBullet : MonoBehaviour
     public void InitBullet(Vector3 direction)
     {
         movingDistance = direction.normalized * speed;
+        StartCoroutine(DestroyWhenLifeTimeOut());
+        trailRenderer.enabled = true;
     }
 
 
@@ -42,14 +45,9 @@ public class NormalBullet : MonoBehaviour
         movingDistance = Vector3.zero;
         enemyLayer = LayerMask.NameToLayer("Enemy");
         enviromentLayer = LayerMask.NameToLayer("Enviroments");
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
     }
-
-
-
-    private void Start()
-    {
-        StartCoroutine(DestroyWhenLifeTimeOut());
-    }
+    
 
     private void FixedUpdate()
     {
@@ -59,7 +57,8 @@ public class NormalBullet : MonoBehaviour
     private IEnumerator DestroyWhenLifeTimeOut()
     {
         yield return new WaitForSeconds(surviveTime);
-        Destroy(gameObject);
+        BulletPool.Instance.ReturnNormalBullet(this);
+        trailRenderer.enabled = false;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -73,14 +72,18 @@ public class NormalBullet : MonoBehaviour
             
             DoDamage(_zombie);
             BeatBack(_zombie);
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            BulletPool.Instance.ReturnNormalBullet(this);
+            trailRenderer.enabled = false;
             return;
+            
         }
 
         if (_layer == enviromentLayer)
         {
-            Destroy(gameObject);
-            return;
+            // Destroy(gameObject);
+            BulletPool.Instance.ReturnNormalBullet(this);
+            trailRenderer.enabled = false;
         }
     }
     
@@ -103,10 +106,6 @@ public class NormalBullet : MonoBehaviour
             zombie.GetPosition().position += beatBackDistance;
         }
     }
-
-    private void OnDestroy()
-    {
-        
-    }
+    
 }
 }

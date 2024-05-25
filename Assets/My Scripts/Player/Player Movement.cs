@@ -250,7 +250,10 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
         {
             if (canShoot)
             {
-                NormalBullet _bullet = Instantiate(bullet1, shootPosition.position, Quaternion.identity).GetComponent<NormalBullet>();
+                // NormalBullet _bullet = Instantiate(bullet1, shootPosition.position, Quaternion.identity).GetComponent<NormalBullet>();
+                NormalBullet _bullet = BulletPool.Instance.GetNormalBullet();
+                _bullet.transform.position = shootPosition.position;
+                _bullet.transform.rotation = Quaternion.identity;
                 _bullet.InitBullet(transform.forward);
                 canShoot = false;
                 StartCoroutine(CoroCounterForShoot());

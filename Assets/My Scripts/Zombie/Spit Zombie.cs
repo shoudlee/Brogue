@@ -139,10 +139,13 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
     // called by animator
     public void AnimatorSpit()
     {
-        spit.transform.parent = null;
-        spit.LaunchProjectile(target.position);
-        spit.EnableGravity();
-        spit = null;
+        if (spit != null)
+        {
+            spit.transform.parent = null;
+            spit.LaunchProjectile(target.position);
+            spit.EnableGravity();
+            spit = null;
+        }
     }
 
     private void OnAnimatorMove()
@@ -295,8 +298,6 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         StartCoroutine(CoroDeadRemoveLastComponents());
 
     }
-
-
 
     public int Defense()
     {

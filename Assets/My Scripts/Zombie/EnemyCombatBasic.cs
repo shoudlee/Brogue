@@ -64,5 +64,15 @@ namespace Brogue.Zombie
             this.target = target;
             this.generator = generator;
         }
+
+        private void OnDestroy()
+        {
+            ZombieAttackHands[] zombieAttackHands = GetComponentsInChildren<ZombieAttackHands>();
+            foreach (ZombieAttackHands hand in zombieAttackHands)
+            {
+                hand.gameObject.SetActive(false);
+            }            
+
+        }
     }
 }

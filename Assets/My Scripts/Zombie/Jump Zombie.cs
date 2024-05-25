@@ -260,7 +260,7 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         agent.enabled = false;
 
         StartCoroutine(CoroDeadRemoveLastComponents());
-
+        
     }
 
     public int AttackPower
