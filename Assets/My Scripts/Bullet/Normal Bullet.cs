@@ -75,11 +75,8 @@ public class NormalBullet : MonoBehaviour
             // Destroy(gameObject);
             BulletPool.Instance.ReturnNormalBullet(this);
             trailRenderer.enabled = false;
-            return;
             
-        }
-
-        if (_layer == enviromentLayer)
+        }else if (_layer == enviromentLayer)
         {
             // Destroy(gameObject);
             BulletPool.Instance.ReturnNormalBullet(this);

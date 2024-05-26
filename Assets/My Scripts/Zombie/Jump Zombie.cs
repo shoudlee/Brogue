@@ -316,11 +316,9 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         return attackPower;
     }
     
+
     private IEnumerator CoroDeadRemoveLastComponents()
     {
-        yield return new WaitForSeconds(1);
-        Collider _collider = GetComponent<Collider>();
-        Destroy(_collider);
         foreach (var _component in GetComponents<Component>())
         {
             if (!(_component is Animator || _component is Transform || _component is NavMeshAgent))
@@ -333,11 +331,11 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
                 }
             }
         }
+        yield return new WaitForSeconds(2);
         Destroy(animator);
         Destroy(agent);
         
     }
-
     // private void OnDrawGizmos()
     // {
     //     Gizmos.DrawLine(jumpAttackCheckpoint.position, target.position);

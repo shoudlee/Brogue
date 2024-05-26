@@ -50,7 +50,7 @@ public class ProjectileSpitbieAffectedArea: MonoBehaviour
             player = other.gameObject.GetComponent<PlayerMovement>();
             player.PlayerInPoison(damageLevel);
             player.movementAlter = deceleration;
-            Debug.Log("player in poison!");
+            // Debug.Log("player in poison!");
         }
     }
 

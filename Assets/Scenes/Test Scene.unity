@@ -1601,6 +1601,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spitbie (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7360295190341964562, guid: e11583ef2bc9f18468f9a1fa4336e08a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8672411369992532518, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
       propertyPath: target
@@ -1801,7 +1806,7 @@ PrefabInstance:
     - target: {fileID: 7360295190341964562, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8672411369992532518, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
@@ -2737,7 +2742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1393199282
 Transform:
   m_ObjectHideFlags: 0
@@ -3114,10 +3119,11 @@ MonoBehaviour:
   normalZombie: {fileID: 435629857584102073, guid: 79aaa1e72923ae54a832f331994c5469,
     type: 3}
   jumbie: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3, type: 3}
+  Spitbie: {fileID: 5394830573724669250, guid: e11583ef2bc9f18468f9a1fa4336e08a, type: 3}
   radius: 18
   ratio: 0.5
   genInterval: 1
-  isActing: 0
+  isActing: 1
 --- !u!1001 &1615800001
 PrefabInstance:
   m_ObjectHideFlags: 0

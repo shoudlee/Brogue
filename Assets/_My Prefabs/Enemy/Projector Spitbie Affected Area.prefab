@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 5
   spreadingSpeed: 0.01
-  damageLevel: 50
+  damageLevel: 5
   deceleration: 0.95
 --- !u!135 &2832182854991175117
 SphereCollider:

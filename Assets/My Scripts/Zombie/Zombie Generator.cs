@@ -11,11 +11,14 @@ public class ZombieGenerator : MonoBehaviour
     public int zombieCount;
     [SerializeField] private Transform target;
     [Space(10)]
+    
     [Header("Zombies")]
     [Range(50, 300)]
+    
     [SerializeField] private int maxZombies = 100;
     [SerializeField] private Transform normalZombie;
     [SerializeField] private Transform jumbie;
+    [SerializeField] private Transform Spitbie;
     [Space(10)] [SerializeField] private float radius;
     [Space(10)]
     
@@ -58,8 +61,18 @@ public class ZombieGenerator : MonoBehaviour
                 Vector3 _pos = new Vector3(_pos2.x, 0, _pos2.y);
                 if (Random.Range(0.1f, 1) <= ratio)
                 {
-                    //gen a special zombie
-                    Instantiate(jumbie, _pos*radius + target.position, Quaternion.identity).GetComponent<BaseEnemyClass>().Init(target, this);
+                    // gen a special zombie
+                     if (Random.Range(0.1f, 1) <= 0.5f)
+                     {
+                         Instantiate(jumbie, _pos*radius + target.position, Quaternion.identity).GetComponent<BaseEnemyClass>().Init(target, this);
+                     }
+                     else
+                     {
+                         Instantiate(Spitbie, _pos * radius + target.position, Quaternion.identity)
+                             .GetComponent<BaseEnemyClass>().Init(target, this);
+                     }
+                    // Instantiate(jumbie, _pos*radius + target.position, Quaternion.identity).GetComponent<BaseEnemyClass>().Init(target, this);
+
                 }
                 else
                 {

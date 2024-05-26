@@ -1716,7 +1716,7 @@ MonoBehaviour:
   spitCheckPoint: {fileID: 7394987986128392732}
   spitableProjectile: {fileID: 3469102562681760501, guid: 1da17b5a9ed7e5c49bd87fd311e80244,
     type: 3}
-  skinnedMeshRender: {fileID: 0}
+  skinnedMeshRender: {fileID: 5545114865718945391}
 --- !u!1 &7518663195287108743
 GameObject:
   m_ObjectHideFlags: 0

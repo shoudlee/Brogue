@@ -25,7 +25,7 @@ public class BulletPool : MonoBehaviour
          return;
       }
 
-      normalBulletPool = new ObjectPool<NormalBullet>(CreateNormalBullet, OnGetNormalBullet, OnReleaseNormalBullet,
+      normalBulletPool = new ObjectPool<NormalBullet>(CreateNormalBullet, OnGetNormalBullet, actionOnRelease:OnReleaseNormalBullet,
          OnDestroyNormalBullet, defaultCapacity:50,maxSize:100);
    }
 

@@ -244,7 +244,6 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
 
     private IEnumerator CoroDeadRemoveLastComponents()
     {
-        yield return new WaitForSeconds(1);
         foreach (var _component in GetComponents<Component>())
         {
             if (!(_component is Animator || _component is Transform || _component is NavMeshAgent))
@@ -257,6 +256,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
                 }
             }
         }
+        yield return new WaitForSeconds(2);
         Destroy(animator);
         Destroy(agent);
         

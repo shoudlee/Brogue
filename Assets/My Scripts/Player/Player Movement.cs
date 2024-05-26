@@ -35,9 +35,9 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
     public int defense;
 
     private bool isDead;
-    public bool inPoison;
-    public int poisonLevel;
-    public float movementAlter;
+    [HideInInspector]public bool inPoison;
+    [HideInInspector]public int poisonLevel;
+    [HideInInspector]public float movementAlter;
     private Coroutine playerInPoisonCoro;
     
     

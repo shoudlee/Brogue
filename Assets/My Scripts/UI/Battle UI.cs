@@ -32,10 +32,10 @@ public class BattleUI : MonoBehaviour
     }
     private void UpdatePlayerPortrait()
     {
-        float radio = 1 - GetPlayerHealthRadio();
+        float radio = GetPlayerHealthRadio();
         if (radio > 0)
         {
-            healthMask.sizeDelta = new Vector2(healthMask.sizeDelta.x, radio * 100);
+            healthMask.sizeDelta = new Vector2(healthMask.sizeDelta.x, (1-radio) * 100);
         }
         else if (normalPlayerPortrait.IsActive())
         {
