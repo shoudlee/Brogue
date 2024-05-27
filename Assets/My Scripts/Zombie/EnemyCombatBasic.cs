@@ -7,6 +7,9 @@ namespace Brogue.Zombie
 {
     public class BaseEnemyClass : MonoBehaviour
     {
+        public int mapRange = 50;
+        
+        
         // interval must not be 0
         [SerializeField] protected Transform target;
         protected float navTargetPositionUpdateInterval;
@@ -27,8 +30,13 @@ namespace Brogue.Zombie
         {
             agent.SetDestination(target.position);
             navCoro = StartCoroutine(CoroUpdateNavTargetPosition());
+            if (Math.Abs(transform.position.x) > mapRange-5 || Math.Abs(transform.position.z) > mapRange-5)
+            {
+                Destroy(gameObject);
+            }
         }
         
+
         private IEnumerator CoroUpdateNavTargetPosition()
         {
         
@@ -74,5 +82,6 @@ namespace Brogue.Zombie
             }            
 
         }
+        
     }
 }

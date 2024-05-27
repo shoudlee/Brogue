@@ -93,6 +93,8 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
         animator.SetFloat(movementXString, currentSpeedWS);
         animator.SetBool(fireMainGunString, false);
         
+        material.color = normalColor;
+        
     }
 
     private void Update()
