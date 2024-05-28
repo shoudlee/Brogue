@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Brogue.Zombie;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 namespace Brogue.Core
@@ -12,7 +13,7 @@ namespace Brogue.Core
     {
         public string zombieMeshesBundleName = "zombiemeshes";
         public string zombieMeshesName = "Zombie Meshes";
-        public ZombieMeshes zombieMeshesObject;
+        private ZombieMeshes zombieMeshesObject;
         
         // private void Awake()
         // {
@@ -41,6 +42,31 @@ namespace Brogue.Core
             _z.transform.parent = transform;
             zombieMeshesObject = _z.GetComponent<ZombieMeshes>();
             zombieMeshesBundle.Unload(false);
+        }
+
+        public Mesh GetRandomZombieMesh(string zombieType)
+        {
+            switch (zombieType)
+            {
+                case "Zombie":
+                {
+                    return zombieMeshesObject.NromalZombieMeshes[
+                        Random.Range(0, zombieMeshesObject.NromalZombieMeshes.Length - 1)];
+                }
+                case "Jumbie":
+                {
+                    return zombieMeshesObject.JumperZombieMeshes[
+                        Random.Range(0, zombieMeshesObject.JumperZombieMeshes.Length - 1)];
+                }
+                case "Spitbie":
+                {
+                    return zombieMeshesObject.SpitterZombieMeshes[
+                        Random.Range(0, zombieMeshesObject.SpitterZombieMeshes.Length - 1)];
+                }
+            }
+            
+            // default mesh
+            return zombieMeshesObject.NromalZombieMeshes[0];
         }
     }
 }

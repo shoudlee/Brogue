@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class ProjectileSpitbie : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private SphereCollider collider;
+    [SerializeField] private new SphereCollider collider;
     [SerializeField] private ProjectileSpitbieAffectedArea projectileSpitbieAffectedArea;
     
     // when this hit the ground, instantiate this area

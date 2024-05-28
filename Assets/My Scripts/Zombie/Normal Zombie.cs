@@ -15,36 +15,34 @@ namespace Brogue.Zombie
 [RequireComponent(typeof(NavMeshAgent))]
 public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombieAttackPower
 {
-
-    
     // battle systems
-    [SerializeField] private float huntingDistance;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackSpeed;
-    [SerializeField] private int attackPower;
-    [SerializeField] private int defense;
+    [SerializeField] protected float huntingDistance;
+    [SerializeField] protected float attackRange;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected int attackPower;
+    [SerializeField] protected int defense;
     // [SerializeField] private float attckAgentStopTime;
     public int currentHp;
-    [SerializeField] private int maxHp;
+    public int maxHp;
     // meshes
-    [SerializeField] private SkinnedMeshRenderer skinnedMeshRender;
+    protected SkinnedMeshRenderer skinnedMeshRender;
     
-    private bool isHunting;
-    private float minAttackingInterval;
-    private float attackingIntervalCounter;
-    private Animator animator;
+    protected bool isHunting;
+    protected float minAttackingInterval;
+    protected float attackingIntervalCounter;
+    protected Animator animator;
     
     // zombie had dead once, so it's second death
-    private bool isDeadAgain;
+    protected bool isDeadAgain;
     
-    private bool isWithinAttackRange;
+    protected bool isWithinAttackRange;
     
     // animator params to string
-    private int animatorWalkingString;
-    private int animatorDyingString;
-    private int animatorAttackingString;
+    protected int animatorWalkingString;
+    protected int animatorDyingString;
+    protected int animatorAttackingString;
 
-    private void Awake()
+    private new void Awake()
     {
         base.Awake();
         
@@ -54,22 +52,23 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
         isDeadAgain = false;
         minAttackingInterval = 1 / attackSpeed;
         attackingIntervalCounter = 0f;
-        animator = GetComponent<Animator>();
+        
 
+
+    }
+
+    protected new virtual void Start()
+    {
+        base.Start();
+        skinnedMeshRender = GetComponentInChildren<SkinnedMeshRenderer>();
+        animator = GetComponent<Animator>();
         animatorWalkingString = Animator.StringToHash("WalkingSpeed");
         animatorDyingString = Animator.StringToHash("dying");
         animatorAttackingString = Animator.StringToHash("attacking");
-        
+        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.GetRandomZombieMesh("Zombie");
     }
 
-    void Start()
-    {
-        base.Start();
-        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.zombieMeshesObject.NromalZombieMeshes[
-            Random.Range(0, GameManager.Instance.aBloader.zombieMeshesObject.NromalZombieMeshes.Length-1)];
-    }
-
-    private void Update()
+    protected virtual void Update()
     {
         StopHuntIfPlayerOutOfHuntingRange();
         AttackPlayerIfWithingAttackingRange();
@@ -79,7 +78,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
     }
 
 
-    private void OnAnimatorMove()
+    protected virtual void OnAnimatorMove()
     {
         transform.position += animator.deltaPosition;
         agent.nextPosition = transform.position;
@@ -87,7 +86,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
     }
 
     // 超出范围则停止hunt玩家 or within attack range
-    private void StopHuntIfPlayerOutOfHuntingRange()
+    protected virtual void StopHuntIfPlayerOutOfHuntingRange()
     {
         isHunting = Vector3.Distance(transform.position, target.transform.position) <= huntingDistance;
         if (isWithinAttackRange)
@@ -111,26 +110,8 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
         }
     }
 
-    private void AttackPlayerIfWithingAttackingRange()
+    protected virtual void AttackPlayerIfWithingAttackingRange()
     {
-        // if ( attackingIntervalCounter <= 0f )
-        // {
-        //     if (Vector3.Distance(transform.position, target.transform.position) <= attackRange)
-        //     {
-        //         Debug.Log(agent.nextPosition);
-        //         // attack logic
-        //         Attack();
-        //         // end of attack logic
-        //         
-        //         attackingIntervalCounter = minAttackingInterval;
-        //     }
-        // }
-        // else if( attackingIntervalCounter > 0f)
-        // {
-        //     
-        //     attackingIntervalCounter -= Time.deltaTime;
-        // }
-        
         if (attackingIntervalCounter > 0f)
         {
             attackingIntervalCounter -= Time.deltaTime;
@@ -158,7 +139,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
 
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         NavAgentChangeToObstacle();
         PlayerMovement player = target.GetComponent<PlayerMovement>();
@@ -242,7 +223,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
         return attackPower;
     }
 
-    private IEnumerator CoroDeadRemoveLastComponents()
+    protected IEnumerator CoroDeadRemoveLastComponents()
     {
         foreach (var _component in GetComponents<Component>())
         {

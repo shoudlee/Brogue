@@ -56,7 +56,7 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
     private int animatorAttackingString;
     private int animatorSpitAttack;
 
-    private void Awake()
+    private new void Awake()
     {
         base.Awake();
         
@@ -76,11 +76,10 @@ public class SpitZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
 
     }
 
-    void Start()
+    new void  Start()
     {
         base.Start();
-        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.zombieMeshesObject.NromalZombieMeshes[
-            Random.Range(0, GameManager.Instance.aBloader.zombieMeshesObject.NromalZombieMeshes.Length-1)];
+        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.GetRandomZombieMesh("Spitbie");
     }
 
     private void Update()

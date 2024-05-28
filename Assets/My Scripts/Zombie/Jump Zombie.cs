@@ -8,84 +8,40 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace  Brogue.Zombie{
-public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombieAttackPower
+public class JumpZombie : NormalZombie
 {
      
     // battle systems
-    [SerializeField] private float huntingDistance;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackSpeed;
-    [SerializeField] private int attackPower;
-    [SerializeField] private int defense;
     [SerializeField] private float jumpAttackCoolDown;
     [SerializeField] private int jumpAttackRange;
-
     [SerializeField] private Transform jumpAttackCheckpoint;
-    // [SerializeField] private float attckAgentStopTime;
-    public int currentHp;
-    [SerializeField] private int maxHp;
-    // meshes
-    [SerializeField] private SkinnedMeshRenderer skinnedMeshRender;
     
-    private bool isHunting;
-    private float minAttackingInterval;
-    private float attackingIntervalCounter;
-    private Animator animator;
     private Vector3 jumpSpeed;
     private bool isJumping;
     private float jumpAttackCounter;
     
-    // zombie had dead once, so it's second death
-    private bool isDeadAgain;
-    
-    private bool isWithinAttackRange;
-    
-    // animator params to string
-    private int animatorWalkingString;
-    private int animatorDyingString;
-    private int animatorAttackingString;
-    
 
-    private void Awake()
+    private new void Awake()
     {
         base.Awake();
         
-
-        isWithinAttackRange = false;
-        isHunting = false;
-        isDeadAgain = false;
-        minAttackingInterval = 1 / attackSpeed;
-        attackingIntervalCounter = 0f;
-        animator = GetComponent<Animator>();
         jumpSpeed = Vector3.zero;
         isJumping = false;
         jumpAttackCounter = 0;
-
-        animatorWalkingString = Animator.StringToHash("WalkingSpeed");
-        animatorDyingString = Animator.StringToHash("dying");
-        animatorAttackingString = Animator.StringToHash("attacking");
         
     }
 
-    void Start()
+    protected override void Start()
     {
         base.Start();
-        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.zombieMeshesObject.NromalZombieMeshes[
-            Random.Range(0, GameManager.Instance.aBloader.zombieMeshesObject.NromalZombieMeshes.Length-1)];
-        
-        // test
-        // JumpAttack(target.transform.position);
+        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.GetRandomZombieMesh("Jumbie");
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         jumpAttackCounter -= Time.deltaTime;
-        StopHuntIfPlayerOutOfHuntingRange();
         TryJumpAttackIfWithinRange();
-        AttackPlayerIfWithingAttackingRange();
-        CheckIfDead();
-        
-        // Debug.Log(agent.remainingDistance);
     }
 
     private void TryJumpAttackIfWithinRange()
@@ -113,27 +69,21 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
                 return;
             }
         }
-        
-        
-        
-        
         if ( _distance<= jumpAttackRange && _distance >= attackRange)
-            
         {
             JumpAttack(target.transform.position);
         }
     }
 
 
-    private void OnAnimatorMove()
+    protected override void OnAnimatorMove()
     {
         transform.position += animator.deltaPosition;
         agent.nextPosition = transform.position;
         // Debug.Log(agent.nextPosition);
     }
-
-    // 超出范围则停止hunt玩家 or within attack range
-    private void StopHuntIfPlayerOutOfHuntingRange()
+    
+    protected override void StopHuntIfPlayerOutOfHuntingRange()
     {
         if (isJumping)
         {
@@ -160,120 +110,8 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
             // animator.SetBool(animatorWalkingString, false);
         }
     }
-
-    private void AttackPlayerIfWithingAttackingRange()
-    {
-        if (isJumping)
-        {
-            return;
-        }
-        if (attackingIntervalCounter > 0f)
-        {
-            attackingIntervalCounter -= Time.deltaTime;
-        }
-        
-        if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
-        {
-            if (!agent.enabled)
-            {
-                NavObstacleChangeToAgent();
-            }
-
-            isWithinAttackRange = false;
-        }
-        else
-        {
-            isWithinAttackRange = true;
-            if (attackingIntervalCounter <= 0f)
-            {
-                Attack();
-                attackingIntervalCounter = minAttackingInterval;
-            }
-            
-        }
-
-    }
-
-    private void Attack()
-    {
-        NavAgentChangeToObstacle();
-        PlayerMovement player = target.GetComponent<PlayerMovement>();
-        // transform.LookAt(target);
-        // player.currentHp -= attackPower;
-        animator.SetTrigger(animatorAttackingString);
-        
-        // Debug.Log(name + " Attacks!");
-    }
-
-    private void CheckIfDead()
-    {
-        if (!isDeadAgain)
-        {
-            if (currentHp <= 0)
-            {
-                Dead();
-            }
-        
-        }
-    }
-    // 如果在isHunting == false的时候，关掉了这个coroutine，那么target position不会更新，isHunting不再会自动变为true
-
-
-    // private IEnumerator CoroStopAgentForSomeSeconds(float seconds)
-    // {
-    //     agent.isStopped = true;
-    //     yield return new WaitForSeconds(seconds);
-    //     agent.isStopped = false;
-    // }
-
-
-    public void GetHit(int damage)
-    {
-        currentHp -= damage;
-        if (currentHp < 0)
-        {
-            currentHp = 0;
-        }
-    }
-
-    public Transform GetPosition()
-    {
-        return transform;
-    }
-
-    public void Dead()
-    {
-        if (generator is not null)
-        {
-            generator.zombieCount--;
-            // Debug.Log("jump zombie die");
-        }
-        
-        
-        animator.SetTrigger(animatorDyingString);
-        if (agent.enabled)
-        {
-            agent.isStopped = true;
-        }
-        isDeadAgain = true;
-        StopCoroutine(navCoro);
-        agent.enabled = false;
-
-        StartCoroutine(CoroDeadRemoveLastComponents());
-        
-    }
-
-    public int AttackPower
-    {
-        get => attackPower;
-        private set => this.attackPower = value;
-    }
-
-    public int Defense()
-    {
-        return defense;
-    }
-
+    
+    
     
     // jump attack part
     private void JumpAttack(Vector3 destination)
@@ -310,32 +148,8 @@ public class JumpZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZom
         
         NavAgentChangeToObstacle();
     }
-
-    int IZombieAttackPower.AttackPower()
-    {
-        return attackPower;
-    }
     
 
-    private IEnumerator CoroDeadRemoveLastComponents()
-    {
-        foreach (var _component in GetComponents<Component>())
-        {
-            if (!(_component is Animator || _component is Transform || _component is NavMeshAgent))
-            {
-                // 尝试将组件转换为Behaviour类型（大部分可被禁用的组件都是从Behaviour派生的）
-                Behaviour behaviourComponent = _component as Behaviour;
-                if (behaviourComponent != null)
-                {
-                    Destroy(_component);// 禁用组件
-                }
-            }
-        }
-        yield return new WaitForSeconds(2);
-        Destroy(animator);
-        Destroy(agent);
-        
-    }
     // private void OnDrawGizmos()
     // {
     //     Gizmos.DrawLine(jumpAttackCheckpoint.position, target.position);

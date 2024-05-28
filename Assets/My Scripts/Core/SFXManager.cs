@@ -12,10 +12,11 @@ public class SFXManager : MonoBehaviour
     [SerializeField]  AudioSource audioSource;
     void Awake()
     {
+        //DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
         if (Instance is null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {

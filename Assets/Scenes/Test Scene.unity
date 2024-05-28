@@ -2211,7 +2211,7 @@ PrefabInstance:
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.67
+      value: 12.3
       objectReference: {fileID: 0}
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
@@ -2221,7 +2221,7 @@ PrefabInstance:
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.58
+      value: 15.6
       objectReference: {fileID: 0}
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
@@ -3321,7 +3321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1393199282
 Transform:
   m_ObjectHideFlags: 0
@@ -4784,7 +4784,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombieMeshesBundleName: zombiemeshes
   zombieMeshesName: Zombie Meshes
-  zombieMeshesObject: {fileID: 0}
 --- !u!1 &1980239072
 GameObject:
   m_ObjectHideFlags: 0
