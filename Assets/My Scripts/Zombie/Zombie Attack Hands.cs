@@ -15,7 +15,7 @@ public class ZombieAttackHands : MonoBehaviour
 
     private void Start()
     {
-        attackPower = GetComponentInParent<IZombieAttackPower>().AttackPower();
+        attackPower = GetComponentInParent<NormalZombie>().AttackPower;
         playerLayerMask = LayerMask.NameToLayer("Player") ;
     }
 
@@ -23,7 +23,7 @@ public class ZombieAttackHands : MonoBehaviour
     {
         if (other.gameObject.layer == playerLayerMask)
         {
-            BattleProperties _other = other.GetComponent<PlayerMovement>() as BattleProperties;
+            IBattleProperties _other = other.GetComponent<PlayerMovement>() as IBattleProperties;
             _other?.GetHit(attackPower);
         }
     }

@@ -63,10 +63,7 @@ namespace Brogue.Zombie
             agent.enabled = true;
             obstacle.carving = false;
         }
-        public void Init(Transform target)
-        {
-            this.target = target;
-        }
+
         public void Init(Transform target, ZombieGenerator generator)
         {
             this.target = target;

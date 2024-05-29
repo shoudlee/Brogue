@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Brogue.Core;
 using UnityEngine;
 using Brogue.Zombie;
 
@@ -67,7 +68,7 @@ public class NormalBullet : MonoBehaviour
 
         if (_layer == enemyLayer)
         {
-            IZombieHitable _zombie = other.gameObject.GetComponent<IZombieHitable>();
+            IBattleProperties _zombie = other.gameObject.GetComponent<IBattleProperties>();
 
             
             DoDamage(_zombie);
@@ -86,7 +87,7 @@ public class NormalBullet : MonoBehaviour
     
     
     
-    private void DoDamage(IZombieHitable _zombie)
+    private void DoDamage(IBattleProperties _zombie)
     {
         if (_zombie is not null)
         {
@@ -94,13 +95,13 @@ public class NormalBullet : MonoBehaviour
         }
     }
 
-    private void BeatBack(IZombieHitable zombie)
+    private void BeatBack(IBattleProperties zombie)
     {
         Vector3 beatBackDistance = movingDistance * beatBack;
         beatBackDistance.y = 0;
         if (zombie is not null)
         {
-            zombie.GetPosition().position += beatBackDistance;
+            zombie.Transform().position += beatBackDistance;
         }
     }
     

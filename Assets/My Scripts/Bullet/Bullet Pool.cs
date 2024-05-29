@@ -10,7 +10,7 @@ public class BulletPool : MonoBehaviour
    public static BulletPool Instance;
 
    [SerializeField] private NormalBullet normalBulletPrefab;
-    private ObjectPool<NormalBullet> normalBulletPool;
+   private ObjectPool<NormalBullet> normalBulletPool;
 
    private void Awake()
    {

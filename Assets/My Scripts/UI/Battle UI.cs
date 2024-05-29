@@ -10,29 +10,16 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private RectTransform healthMask;
     [SerializeField] private Image normalPlayerPortrait;
     [SerializeField] private Image deadPlayerPortrait;
-    private PlayerMovement playerMovement;
+
     private void Start()
     {
-        playerMovement = FindObjectOfType<PlayerMovement>();
-        if (playerMovement == null)
-        {
-            Debug.Log("Player script not found. ");
-        }
-    }
-
-    void Update()
-    {
         UpdatePlayerPortrait();
+        GameManager.Instance.playerMovement.GetHitEvent += UpdatePlayerPortrait;
     }
 
-    private float GetPlayerHealthRadio()
-    {
-        
-        return (float)playerMovement.currentHp/playerMovement.playerMaxHp;
-    }
     private void UpdatePlayerPortrait()
     {
-        float radio = GetPlayerHealthRadio();
+        float radio = GameManager.Instance.GetPlayerHealthRadio();
         if (radio > 0)
         {
             healthMask.sizeDelta = new Vector2(healthMask.sizeDelta.x, (1-radio) * 100);

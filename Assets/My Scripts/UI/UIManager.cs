@@ -8,23 +8,9 @@ using UnityEngine;
 namespace Brogue.UI{
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private RectTransform defeatedUI;
-
-
-    // private void Awake()
-    // {
-    //     if (Instance is null)
-    //     {
-    //         Instance = this;
-    //         DontDestroyOnLoad(gameObject);
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    //     
-    // }
-
+    [SerializeField] private DefeatedUI defeatedUI;
+    [SerializeField] private BattleUI battleUI;
+    
     public void ShowDefeatedUI()
     {
         defeatedUI.gameObject.SetActive(true);
@@ -34,5 +20,7 @@ public class UIManager : MonoBehaviour
     {
         defeatedUI.gameObject.SetActive(false);
     }
+    
+    
 }
 }

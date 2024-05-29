@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class SFXManager : MonoBehaviour
 {
-    public static SFXManager Instance;
+    private static SFXManager Instance;
     [SerializeField] List<AudioClip> playerGetHitSFX;
     [SerializeField]  AudioSource audioSource;
     void Awake()
@@ -24,9 +24,13 @@ public class SFXManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        GameManager.Instance.playerMovement.GetHitEvent += PlayPlayerGetHitAudio;
+    }
+
     public void PlayPlayerGetHitAudio()
     {
-        
         audioSource.PlayOneShot(playerGetHitSFX[Random.Range(0,playerGetHitSFX.Count)]);
     }
     

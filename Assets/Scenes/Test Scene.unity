@@ -1959,12 +1959,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9014da122208d4a9bc3c9107772634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aBloader: {fileID: 1953043050}
-  uiManager: {fileID: 1226366324}
   highObstacleLayerMask: 0
   mainFloorLayerMask: 0
   playerLayerMask: 0
   playerBulletLayerMask: 0
+  playerMovement: {fileID: 0}
 --- !u!4 &772726072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4969174171079740, guid: e661406915866564c95734269648449e,
@@ -2636,6 +2635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Jumbie
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003606520353023076, guid: 7621238721865584eb271b7bb2d7c8d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
@@ -3465,6 +3469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defeatedUI: {fileID: 1000934188}
+  battleUI: {fileID: 854257534}
 --- !u!4 &1226366325
 Transform:
   m_ObjectHideFlags: 0
@@ -6293,7 +6298,7 @@ PrefabInstance:
     - target: {fileID: 7360295190341964562, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8672411369992532518, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}

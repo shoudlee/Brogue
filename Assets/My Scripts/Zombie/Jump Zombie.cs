@@ -11,7 +11,7 @@ namespace  Brogue.Zombie{
 public class JumpZombie : NormalZombie
 {
      
-    // battle systems
+    [Header("Jumbie Attributes")]
     [SerializeField] private float jumpAttackCoolDown;
     [SerializeField] private int jumpAttackRange;
     [SerializeField] private Transform jumpAttackCheckpoint;
@@ -21,7 +21,7 @@ public class JumpZombie : NormalZombie
     private float jumpAttackCounter;
     
 
-    private new void Awake()
+    protected override void Awake()
     {
         base.Awake();
         
@@ -34,7 +34,7 @@ public class JumpZombie : NormalZombie
     protected override void Start()
     {
         base.Start();
-        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.GetRandomZombieMesh("Jumbie");
+        skinnedMeshRender.sharedMesh = GameManager.Instance.GetRandomZombieMesh("Jumbie");
     }
 
     protected override void Update()
@@ -75,13 +75,7 @@ public class JumpZombie : NormalZombie
         }
     }
 
-
-    protected override void OnAnimatorMove()
-    {
-        transform.position += animator.deltaPosition;
-        agent.nextPosition = transform.position;
-        // Debug.Log(agent.nextPosition);
-    }
+    
     
     protected override void StopHuntIfPlayerOutOfHuntingRange()
     {
@@ -111,9 +105,6 @@ public class JumpZombie : NormalZombie
         }
     }
     
-    
-    
-    // jump attack part
     private void JumpAttack(Vector3 destination)
     {
         jumpAttackCounter = jumpAttackCoolDown;
@@ -130,6 +121,8 @@ public class JumpZombie : NormalZombie
     }
 
 
+    
+    // called by animator
     public void JumpAttackStart()
     {
         // Debug.Log("jump attack!");

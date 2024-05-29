@@ -13,7 +13,7 @@ namespace Brogue.Zombie
     
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZombieAttackPower
+public class NormalZombie : BaseEnemyClass, IBattleProperties
 {
     // battle systems
     [SerializeField] protected float huntingDistance;
@@ -21,6 +21,8 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected int attackPower;
     [SerializeField] protected int defense;
+    
+    
     // [SerializeField] private float attckAgentStopTime;
     public int currentHp;
     public int maxHp;
@@ -42,7 +44,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
     protected int animatorDyingString;
     protected int animatorAttackingString;
 
-    private new void Awake()
+    protected virtual void Awake()
     {
         base.Awake();
         
@@ -65,7 +67,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
         animatorWalkingString = Animator.StringToHash("WalkingSpeed");
         animatorDyingString = Animator.StringToHash("dying");
         animatorAttackingString = Animator.StringToHash("attacking");
-        skinnedMeshRender.sharedMesh = GameManager.Instance.aBloader.GetRandomZombieMesh("Zombie");
+        skinnedMeshRender.sharedMesh = GameManager.Instance.GetRandomZombieMesh("Zombie");
     }
 
     protected virtual void Update()
@@ -217,11 +219,7 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
     {
         return defense;
     }
-
-    int IZombieAttackPower.AttackPower()
-    {
-        return attackPower;
-    }
+    
 
     protected IEnumerator CoroDeadRemoveLastComponents()
     {
@@ -241,6 +239,12 @@ public class NormalZombie : BaseEnemyClass, BattleProperties, IZombieHitable, IZ
         Destroy(animator);
         Destroy(agent);
         
+    }
+
+    public int AttackPower { get; private set; }
+    public Transform Transform()
+    {
+        return transform;
     }
 }
 }

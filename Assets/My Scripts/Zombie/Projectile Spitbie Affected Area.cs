@@ -14,14 +14,12 @@ public class ProjectileSpitbieAffectedArea: MonoBehaviour
     [SerializeField] private float spreadingSpeed;
     [SerializeField] private int damageLevel;
     [SerializeField] private float deceleration;
-    private PlayerMovement player;
 
     private float maxY = -0.1f;
 
     private void Awake()
     {
-        player = null;
-        StartCoroutine(CoroDestoryAfterDuration());
+        StartCoroutine(CoroDestroyAfterDuration());
     }
     
     
@@ -37,20 +35,21 @@ public class ProjectileSpitbieAffectedArea: MonoBehaviour
         
     }
 
-    private IEnumerator CoroDestoryAfterDuration()
+    private IEnumerator CoroDestroyAfterDuration()
     {
         yield return new WaitForSeconds(duration);
+        HandleDestroy();
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == GameManager.Instance.playerLayerMask)
-        {
-            player = other.gameObject.GetComponent<PlayerMovement>();
+        { 
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+            player.poisonList.Add(gameObject);
             player.PlayerInPoison(damageLevel);
             player.movementAlter = deceleration;
-            // Debug.Log("player in poison!");
         }
     }
 
@@ -59,18 +58,19 @@ public class ProjectileSpitbieAffectedArea: MonoBehaviour
         if (other.gameObject.layer == GameManager.Instance.playerLayerMask)
         {
             PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+            player.poisonList.Remove(gameObject);
             player.PlayerOutOfPoison(damageLevel);
             player.movementAlter = 1;
-            Debug.Log("player Out of poison!");
         }
     }
 
-    private void OnDestroy()
+    private void HandleDestroy()
     {
-        if (player is not null)
+        if (GameManager.Instance.playerMovement.poisonList.Contains(gameObject))
         {
-            player.PlayerOutOfPoison(damageLevel);
-            player.movementAlter = 1;
+            GameManager.Instance.playerMovement.poisonList.Remove(gameObject);
+            GameManager.Instance.playerMovement.PlayerOutOfPoison(damageLevel);
+            GameManager.Instance.playerMovement.movementAlter = 1;
         }
     }
 }

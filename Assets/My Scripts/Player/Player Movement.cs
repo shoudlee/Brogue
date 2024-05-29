@@ -12,7 +12,7 @@ using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine.Assertions.Must;
 
 namespace Brogue.Player{
-public class PlayerMovement : MonoBehaviour, BattleProperties
+public class PlayerMovement : MonoBehaviour, IBattleProperties
 {
     // out logic properties
     [SerializeField] private LayerMask mainFloor;
@@ -28,18 +28,19 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
     [SerializeField] private Color normalColor;
     [SerializeField] private Color getHitColor;
     
+    
     // battle properties
+    [HideInInspector] public event Action GetHitEvent; 
     public int playerMaxHp;
     public int currentHp;
     [Range(0, 25)]
     public int defense;
-
     private bool isDead;
     [HideInInspector]public bool inPoison;
     [HideInInspector]public int poisonLevel;
     [HideInInspector]public float movementAlter;
     private Coroutine playerInPoisonCoro;
-    
+    [HideInInspector]public List<GameObject> poisonList;
     
     
     // input
@@ -78,6 +79,8 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
         inPoison = false;
         playerInPoisonCoro = null;
         movementAlter = 1;
+
+        poisonList = new List<GameObject>();
     }
 
     private void Start()
@@ -310,7 +313,8 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
             return;
         }
 
-        GetHitEffect();
+        GetHitEvent?.Invoke();
+        GetHitVFX();
         currentHp -= damage;
         if (currentHp <= 0)
         {
@@ -319,12 +323,12 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
     }
 
     // both sound and visual
-    private void GetHitEffect()
+    private void GetHitVFX()
     {
         StartCoroutine(CoroGetHitChangeColor());
-        SFXManager.Instance.PlayPlayerGetHitAudio();
     }
 
+    
     private IEnumerator CoroGetHitChangeColor()
     {
         material.color = getHitColor;
@@ -334,6 +338,11 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
     public int Defense()
     {
         return defense;
+    }
+
+    public Transform Transform()
+    {
+        return transform;
     }
 
     public void Dead()
@@ -346,8 +355,7 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
             animator.SetBool(deadString, isDead);
             animator.SetBool(fireMainGunString, false);
             characterController.enabled = false;
-            Debug.Log(GameManager.Instance.uiManager is null);
-            GameManager.Instance.uiManager.ShowDefeatedUI();
+            GameManager.Instance.ShowDefeatedUI();
             // UIManager.Instance.ShowDefeatedUI();
         }
         
@@ -389,5 +397,6 @@ public class PlayerMovement : MonoBehaviour, BattleProperties
             yield return new WaitForSeconds(1f);
         }
     }
+    
 }
 }
