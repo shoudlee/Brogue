@@ -2629,7 +2629,7 @@ GameObject:
   - component: {fileID: 3805044956643820761}
   - component: {fileID: 4812699369091280215}
   m_Layer: 10
-  m_Name: Normal Player
+  m_Name: Normal Player Prayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

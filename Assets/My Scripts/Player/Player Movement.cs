@@ -35,6 +35,9 @@ public class PlayerMovement : MonoBehaviour, IBattleProperties
     public int currentHp;
     [Range(0, 25)]
     public int defense;
+
+    [SerializeField] private float dashInverval;
+    [SerializeField] private float dashDistance;
     private bool isDead;
     [HideInInspector]public bool inPoison;
     [HideInInspector]public int poisonLevel;
@@ -397,6 +400,10 @@ public class PlayerMovement : MonoBehaviour, IBattleProperties
             yield return new WaitForSeconds(1f);
         }
     }
-    
+
+    private void Dash()
+    {
+        
+    }
 }
 }
