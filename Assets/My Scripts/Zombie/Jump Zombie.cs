@@ -46,6 +46,10 @@ public class JumpZombie : NormalZombie
 
     private void TryJumpAttackIfWithinRange()
     {
+        if (isDeadAgain)
+        {
+            return;
+        }
         if (!isHunting)
         {
             return;
@@ -79,6 +83,10 @@ public class JumpZombie : NormalZombie
     
     protected override void StopHuntIfPlayerOutOfHuntingRange()
     {
+        if (isDeadAgain)
+        {
+            return;
+        }
         if (isJumping)
         {
             return;

@@ -74,14 +74,14 @@ public class NormalBullet : MonoBehaviour
             DoDamage(_zombie);
             BeatBack(_zombie);
             // Destroy(gameObject);
-            BulletPool.Instance.ReturnNormalBullet(this);
             trailRenderer.enabled = false;
+            BulletPool.Instance.ReturnNormalBullet(this);
             
         }else if (_layer == enviromentLayer)
         {
             // Destroy(gameObject);
-            BulletPool.Instance.ReturnNormalBullet(this);
             trailRenderer.enabled = false;
+            BulletPool.Instance.ReturnNormalBullet(this);
         }
     }
     

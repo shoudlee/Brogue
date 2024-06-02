@@ -93,6 +93,10 @@ public class SpitZombie : NormalZombie
 
     private void SpitAttack()
     {
+        if (isDeadAgain)
+        {
+            return;
+        }
         spit = Instantiate(spitableProjectile,spitCheckPoint).GetComponent<ProjectileSpitbie>();
         spit.transform.localPosition = Vector3.zero;
         spit.DisableGravity();

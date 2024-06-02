@@ -26,7 +26,7 @@ public class BulletPool : MonoBehaviour
       }
 
       normalBulletPool = new ObjectPool<NormalBullet>(CreateNormalBullet, OnGetNormalBullet, actionOnRelease:OnReleaseNormalBullet,
-         OnDestroyNormalBullet, defaultCapacity:50,maxSize:100);
+         OnDestroyNormalBullet, defaultCapacity:100,maxSize:500);
    }
 
    private NormalBullet CreateNormalBullet()
@@ -56,6 +56,9 @@ public class BulletPool : MonoBehaviour
 
    public void ReturnNormalBullet(NormalBullet bullet)
    {
-      normalBulletPool.Release(bullet);
+      if (bullet.isActiveAndEnabled)
+      {
+         normalBulletPool.Release(bullet);
+      }
    }
 }

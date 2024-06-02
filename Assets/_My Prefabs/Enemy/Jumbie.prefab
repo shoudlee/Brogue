@@ -261,18 +261,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b10d0934f71354f9fe8efd8d24971a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapRange: 50
   target: {fileID: 0}
   huntingDistance: 20
   attackRange: 1.5
   attackSpeed: 0.25
   attackPower: 1
   defense: 0
+  attackHands:
+  - {fileID: 7502222526729012711}
+  - {fileID: 4945007521527961986}
+  currentHp: 10
+  maxHp: 10
   jumpAttackCoolDown: 15
   jumpAttackRange: 7
   jumpAttackCheckpoint: {fileID: 259615828412767235}
-  currentHp: 10
-  maxHp: 10
-  skinnedMeshRender: {fileID: 1058963636941784863}
 --- !u!54 &3560443580720798003
 Rigidbody:
   m_ObjectHideFlags: 0

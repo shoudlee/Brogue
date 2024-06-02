@@ -9,9 +9,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private ABLoader aBloader;
-    private UIManager uiManager;
-    private SFXManager sfxManager;
+    [SerializeField]private ABLoader aBloader;
+    [SerializeField]private UIManager uiManager;
+    [SerializeField]private SFXManager sfxManager;
     
     public int highObstacleLayerMask;
     public int mainFloorLayerMask;

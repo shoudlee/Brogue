@@ -1154,7 +1154,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1633,6 +1633,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Border Wall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1559522738338180, guid: df662df82e46b874b9d59f720516dd43, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4642117726106736, guid: df662df82e46b874b9d59f720516dd43, type: 3}
       propertyPath: m_LocalScale.x
       value: 20.464998
@@ -1959,6 +1963,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9014da122208d4a9bc3c9107772634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aBloader: {fileID: 1953043050}
+  uiManager: {fileID: 1226366324}
+  sfxManager: {fileID: 1823687090}
   highObstacleLayerMask: 0
   mainFloorLayerMask: 0
   playerLayerMask: 0
@@ -2353,6 +2360,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Border Wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1559522738338180, guid: df662df82e46b874b9d59f720516dd43, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4642117726106736, guid: df662df82e46b874b9d59f720516dd43, type: 3}
       propertyPath: m_LocalScale.x
       value: 20.464998
@@ -2636,15 +2647,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jumbie
       objectReference: {fileID: 0}
-    - target: {fileID: 1003606520353023076, guid: 7621238721865584eb271b7bb2d7c8d3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.3
+      value: 6.47
       objectReference: {fileID: 0}
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
@@ -2654,7 +2660,7 @@ PrefabInstance:
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.6
+      value: 6.39
       objectReference: {fileID: 0}
     - target: {fileID: 6497217225814959773, guid: 7621238721865584eb271b7bb2d7c8d3,
         type: 3}
@@ -2830,6 +2836,10 @@ PrefabInstance:
     - target: {fileID: 1559522738338180, guid: df662df82e46b874b9d59f720516dd43, type: 3}
       propertyPath: m_Name
       value: Border Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559522738338180, guid: df662df82e46b874b9d59f720516dd43, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4642117726106736, guid: df662df82e46b874b9d59f720516dd43, type: 3}
       propertyPath: m_LocalScale.x
@@ -4073,10 +4083,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 434724312}
-  - {fileID: 2042875939}
   - {fileID: 4426803752796904153}
   - {fileID: 1424151603}
   - {fileID: 316425146}
+  - {fileID: 2042875939}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1406744256
@@ -4090,7 +4100,7 @@ PrefabInstance:
     - target: {fileID: 435629857584102073, guid: 79aaa1e72923ae54a832f331994c5469,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.34
+      value: 15.44
       objectReference: {fileID: 0}
     - target: {fileID: 435629857584102073, guid: 79aaa1e72923ae54a832f331994c5469,
         type: 3}
@@ -4100,7 +4110,7 @@ PrefabInstance:
     - target: {fileID: 435629857584102073, guid: 79aaa1e72923ae54a832f331994c5469,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.55
+      value: 10.34
       objectReference: {fileID: 0}
     - target: {fileID: 435629857584102073, guid: 79aaa1e72923ae54a832f331994c5469,
         type: 3}
@@ -4146,11 +4156,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Normal Zombie (11)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6964918600956291849, guid: 79aaa1e72923ae54a832f331994c5469,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4751,13 +4756,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595929409}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faceda864430c444581c0eeba4137242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   zombieCount: 0
-  target: {fileID: 0}
   maxZombies: 75
   normalZombie: {fileID: 435629857584102073, guid: 79aaa1e72923ae54a832f331994c5469,
     type: 3}
@@ -4765,8 +4769,8 @@ MonoBehaviour:
   Spitbie: {fileID: 5394830573724669250, guid: e11583ef2bc9f18468f9a1fa4336e08a, type: 3}
   radius: 18
   ratio: 0.5
-  genInterval: 1
-  isActing: 1
+  genInterval: 3
+  isActing: 0
 --- !u!1001 &1599927209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5998,6 +6002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Border Wall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1559522738338180, guid: df662df82e46b874b9d59f720516dd43, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4642117726106736, guid: df662df82e46b874b9d59f720516dd43, type: 3}
       propertyPath: m_LocalScale.x
       value: 20.464998
@@ -6079,6 +6087,11 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1114720597}
+    - target: {fileID: 701227314580149372, guid: aba027bcb51962d4e8475c9412d57502,
+        type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3460593259017066270, guid: aba027bcb51962d4e8475c9412d57502,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6171,6 +6184,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 2430555750362061411, guid: 60422d1fe8e55f24882ff9a1feccb8ef,
+        type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7592217920595249678, guid: 60422d1fe8e55f24882ff9a1feccb8ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6243,7 +6261,7 @@ PrefabInstance:
     - target: {fileID: 5394830573724669250, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.34
+      value: 8.54
       objectReference: {fileID: 0}
     - target: {fileID: 5394830573724669250, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
@@ -6253,7 +6271,7 @@ PrefabInstance:
     - target: {fileID: 5394830573724669250, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 34.68
+      value: 10.14
       objectReference: {fileID: 0}
     - target: {fileID: 5394830573724669250, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
@@ -6295,21 +6313,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spitbie
       objectReference: {fileID: 0}
-    - target: {fileID: 7360295190341964562, guid: e11583ef2bc9f18468f9a1fa4336e08a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8672411369992532518, guid: e11583ef2bc9f18468f9a1fa4336e08a,
         type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1114720597}
-    - target: {fileID: 8672411369992532518, guid: e11583ef2bc9f18468f9a1fa4336e08a,
-        type: 3}
-      propertyPath: skinnedMeshRender
-      value: 
-      objectReference: {fileID: 1406744257}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

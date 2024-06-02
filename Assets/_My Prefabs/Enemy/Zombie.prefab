@@ -1471,7 +1471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &435629857584102073
 Transform:
   m_ObjectHideFlags: 0
@@ -1583,15 +1583,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6ba3c171cb9214f91683cc90e6fe76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapRange: 50
   target: {fileID: 0}
   huntingDistance: 20
   attackRange: 1.5
   attackSpeed: 0.25
   attackPower: 10
   defense: 0
+  attackHands:
+  - {fileID: 2761621748620096918}
+  - {fileID: 7692975663040124826}
   currentHp: 10
   maxHp: 10
-  skinnedMeshRender: {fileID: 5296141530453371323}
 --- !u!54 &5818704847947435922
 Rigidbody:
   m_ObjectHideFlags: 0

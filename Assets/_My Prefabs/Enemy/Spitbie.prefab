@@ -1703,12 +1703,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8411c80448fd2754cbddff286d40922f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapRange: 50
   target: {fileID: 0}
   huntingDistance: 20
   attackRange: 1.5
   attackSpeed: 0.25
   attackPower: 10
   defense: 0
+  attackHands:
+  - {fileID: 1731439587072134914}
+  - {fileID: 7394987986128392732}
   currentHp: 10
   maxHp: 10
   spitRange: 12
@@ -1716,7 +1720,6 @@ MonoBehaviour:
   spitCheckPoint: {fileID: 7394987986128392732}
   spitableProjectile: {fileID: 3469102562681760501, guid: 1da17b5a9ed7e5c49bd87fd311e80244,
     type: 3}
-  skinnedMeshRender: {fileID: 5545114865718945391}
 --- !u!1 &7518663195287108743
 GameObject:
   m_ObjectHideFlags: 0

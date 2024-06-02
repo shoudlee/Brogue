@@ -9,13 +9,13 @@ using Random = UnityEngine.Random;
 public class ZombieGenerator : MonoBehaviour
 {
     public int zombieCount;
-    [SerializeField] private Transform target;
+    private Transform target;
     [Space(10)]
     
     [Header("Zombies")]
     [Range(50, 300)]
     
-    [SerializeField] private int maxZombies = 100;
+    [SerializeField] private int maxZombies = 500;
     [SerializeField] private Transform normalZombie;
     [SerializeField] private Transform jumbie;
     [SerializeField] private Transform Spitbie;
@@ -40,7 +40,7 @@ public class ZombieGenerator : MonoBehaviour
 
     void Start()
     {
-        target = GameManager.FindObjectOfType<PlayerMovement>().transform;
+        target = FindObjectOfType<PlayerMovement>().transform;
     }
 
     void Update()

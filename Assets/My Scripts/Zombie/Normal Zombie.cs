@@ -21,6 +21,7 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected int attackPower;
     [SerializeField] protected int defense;
+    [SerializeField] protected Transform[] attackHands;
     
     
     // [SerializeField] private float attckAgentStopTime;
@@ -35,7 +36,7 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
     protected Animator animator;
     
     // zombie had dead once, so it's second death
-    protected bool isDeadAgain;
+    protected bool isDeadBodyBeginToSink;
     
     protected bool isWithinAttackRange;
     
@@ -52,6 +53,8 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
         isWithinAttackRange = false;
         isHunting = false;
         isDeadAgain = false;
+        isDeadBodyBeginToSink = false;
+        
         minAttackingInterval = 1 / attackSpeed;
         attackingIntervalCounter = 0f;
         
@@ -72,9 +75,16 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
 
     protected virtual void Update()
     {
-        StopHuntIfPlayerOutOfHuntingRange();
-        AttackPlayerIfWithingAttackingRange();
-        CheckIfDead();
+        if (!CheckIfDead())
+        {
+            StopHuntIfPlayerOutOfHuntingRange();
+            AttackPlayerIfWithingAttackingRange();
+        }
+        if (isDeadBodyBeginToSink)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - (float)(0.1) * Time.deltaTime,
+                transform.position.z);
+        }
         
         // Debug.Log(agent.remainingDistance);
     }
@@ -90,6 +100,10 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
     // 超出范围则停止hunt玩家 or within attack range
     protected virtual void StopHuntIfPlayerOutOfHuntingRange()
     {
+        if (isDeadAgain)
+        {
+            return;
+        }
         isHunting = Vector3.Distance(transform.position, target.transform.position) <= huntingDistance;
         if (isWithinAttackRange)
         {
@@ -143,6 +157,10 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
 
     protected virtual void Attack()
     {
+        if (isDeadAgain)
+        {
+            return;
+        }
         NavAgentChangeToObstacle();
         PlayerMovement player = target.GetComponent<PlayerMovement>();
         // transform.LookAt(target);
@@ -152,16 +170,20 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
         // Debug.Log(name + " Attacks!");
     }
 
-    private void CheckIfDead()
+    private bool CheckIfDead()
     {
         if (!isDeadAgain)
         {
             if (currentHp <= 0)
             {
                 Dead();
+                return true;
             }
-        
+
+            return false;
         }
+
+        return false;
     }
     // 如果在isHunting == false的时候，关掉了这个coroutine，那么target position不会更新，isHunting不再会自动变为true
 
@@ -196,23 +218,33 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
             // Debug.Log("normal zombie die");
         }
 
-        
-
-        
         animator.SetTrigger(animatorDyingString);
         if (agent.enabled)
         {
             agent.isStopped = true;
         }
         isDeadAgain = true;
+
+        foreach (Transform _attackHands  in attackHands)
+        {
+            _attackHands.gameObject.SetActive(false);
+        }
         StopCoroutine(navCoro);
         agent.enabled = false;
         Collider _collider = GetComponent<Collider>();
         Destroy(_collider);
         StartCoroutine(CoroDeadRemoveLastComponents());
+        StartCoroutine(CoroDestroy());
 
     }
 
+    private IEnumerator CoroDestroy()
+    {
+        yield return new WaitForSeconds(10);
+        isDeadBodyBeginToSink = true;
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
+    }
 
 
     public int Defense()
@@ -225,7 +257,7 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
     {
         foreach (var _component in GetComponents<Component>())
         {
-            if (!(_component is Animator || _component is Transform || _component is NavMeshAgent))
+            if (!(_component is Animator or UnityEngine.Transform or NavMeshAgent or NormalZombie))
             {
                 // 尝试将组件转换为Behaviour类型（大部分可被禁用的组件都是从Behaviour派生的）
                 Behaviour behaviourComponent = _component as Behaviour;
@@ -235,12 +267,11 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
                 }
             }
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         Destroy(animator);
-        Destroy(agent);
-        
     }
 
+    
     public int AttackPower { get; private set; }
     public Transform Transform()
     {

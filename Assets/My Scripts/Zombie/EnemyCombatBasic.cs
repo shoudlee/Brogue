@@ -17,12 +17,14 @@ namespace Brogue.Zombie
         protected NavMeshObstacle obstacle;
         protected Coroutine navCoro;
         protected ZombieGenerator generator;
+        protected bool isDeadAgain;
 
         protected void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             obstacle = GetComponent<NavMeshObstacle>();
             agent.updatePosition = false;
+            isDeadAgain = false;
             // agent.updateRotation = false;
         }
 
@@ -39,7 +41,6 @@ namespace Brogue.Zombie
 
         private IEnumerator CoroUpdateNavTargetPosition()
         {
-        
             while (true)
             {
                 if (agent.enabled && !agent.isStopped)
@@ -52,6 +53,10 @@ namespace Brogue.Zombie
         }
         protected void NavAgentChangeToObstacle()
         {
+            if (isDeadAgain)
+            {
+                return;
+            }
             agent.enabled = false;
             obstacle.enabled = true;
             obstacle.carving = true;
@@ -59,6 +64,10 @@ namespace Brogue.Zombie
         
         protected void NavObstacleChangeToAgent()
         {
+            if (isDeadAgain)
+            {
+                return;
+            }
             obstacle.enabled = false;
             agent.enabled = true;
             obstacle.carving = false;
