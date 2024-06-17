@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]private ABLoader aBloader;
     [SerializeField]private UIManager uiManager;
     [SerializeField]private SFXManager sfxManager;
+    [SerializeField] int gameTimeLV1;
     
-    public int highObstacleLayerMask;
-    public int mainFloorLayerMask;
-    public int playerLayerMask;
-    public int playerBulletLayerMask;
-    public PlayerMovement playerMovement;
+    [HideInInspector]public int highObstacleLayerMask;
+    [HideInInspector]public int mainFloorLayerMask;
+    [HideInInspector]public int playerLayerMask;
+    [HideInInspector]public int playerBulletLayerMask;
+    [HideInInspector]public PlayerMovement playerMovement;
+    [HideInInspector]public float currentGameTime;
 
     private void Awake()
     {
@@ -36,11 +38,26 @@ public class GameManager : MonoBehaviour
         mainFloorLayerMask = LayerMask.NameToLayer("Main Floor");
         playerLayerMask = LayerMask.NameToLayer("Player");
         playerBulletLayerMask = LayerMask.NameToLayer("Player Bullet");
+        currentGameTime = gameTimeLV1;
     }
 
     private void Start()
     {
         playerMovement = FindObjectOfType<PlayerMovement>().GetComponent<PlayerMovement>();
+    }
+
+    private void Update()
+    {
+        if (currentGameTime > 0)
+        {
+            currentGameTime -= Time.deltaTime;
+        }
+
+        if (currentGameTime < 0)
+        {
+            currentGameTime = 0;
+        }
+        
     }
 
     public float GetPlayerHealthRadio()

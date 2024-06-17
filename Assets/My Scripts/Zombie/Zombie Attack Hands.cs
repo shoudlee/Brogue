@@ -9,7 +9,7 @@ using Brogue.Player;
 namespace Brogue.Zombie{
 public class ZombieAttackHands : MonoBehaviour
 {
-    public int attackPower;
+    private int attackPower;
 
     private int playerLayerMask;
 

@@ -271,8 +271,11 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
         Destroy(animator);
     }
 
-    
-    public int AttackPower { get; private set; }
+
+    public int AttackPower
+    {
+        get {return attackPower;}
+    }
     public Transform Transform()
     {
         return transform;
