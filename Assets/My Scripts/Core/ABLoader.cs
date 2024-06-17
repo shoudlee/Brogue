@@ -38,8 +38,7 @@ namespace Brogue.Core
             }
 
             GameObject _zombieMeshesObject = zombieMeshesBundle.LoadAsset<GameObject>(zombieMeshesName);
-            GameObject _z = Instantiate(_zombieMeshesObject);
-            _z.transform.parent = transform;
+            GameObject _z = Instantiate(_zombieMeshesObject,parent:transform);
             zombieMeshesObject = _z.GetComponent<ZombieMeshes>();
             zombieMeshesBundle.Unload(false);
         }

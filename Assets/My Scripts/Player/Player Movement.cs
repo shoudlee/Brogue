@@ -156,9 +156,8 @@ public class PlayerMovement : MonoBehaviour, IBattleProperties
     {
         Ray _ray = mainPlayerCamera.ScreenPointToRay(inputMousePosition);
         Physics.Raycast(_ray, out var raycastHit, float.MaxValue, mainFloor);
-        aimingTarget.position = new Vector3(raycastHit.point.x, 0, raycastHit.point.z);
         
-        // dead zone for mouse rotating
+        // dead zone for mouse rotating in FULL HD, inputMousePosition.x,y are described in 1080p
         if (inputMousePosition.x > 500 && inputMousePosition.x < 555)
         {
             if (inputMousePosition.y > 316 && inputMousePosition.y < 350)
@@ -167,7 +166,7 @@ public class PlayerMovement : MonoBehaviour, IBattleProperties
                 // Debug.Log(inputMousePosition);
             }
         }
-        
+        aimingTarget.position = new Vector3(raycastHit.point.x, 0, raycastHit.point.z);
         transform.LookAt(aimingTarget, Vector3.up);
     }
 
