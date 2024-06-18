@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private DefeatedUI defeatedUI;
     [SerializeField] private BattleUI battleUI;
+    // [SerializeField] private DamageNumberManager damageNumberManager;
     
     public void ShowDefeatedUI()
     {

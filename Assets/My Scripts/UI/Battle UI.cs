@@ -12,6 +12,7 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Image normalPlayerPortrait;
     [SerializeField] private Image deadPlayerPortrait;
     [SerializeField] private TextMeshProUGUI currentGameTime;
+    [SerializeField] private DamageNumberManager damageNumberManager;
 
     private void Start()
     {

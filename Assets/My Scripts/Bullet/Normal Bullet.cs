@@ -58,8 +58,8 @@ public class NormalBullet : MonoBehaviour
     private IEnumerator DestroyWhenLifeTimeOut()
     {
         yield return new WaitForSeconds(surviveTime);
-        BulletPool.Instance.ReturnNormalBullet(this);
         trailRenderer.enabled = false;
+        BulletPool.Instance.ReturnNormalBullet(this);
     }
 
     private void OnCollisionEnter(Collision other)

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Brogue.Bullet;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -31,7 +32,9 @@ public class BulletPool : MonoBehaviour
 
    private NormalBullet CreateNormalBullet()
    {
-      return Instantiate(normalBulletPrefab);
+      var _bullet = Instantiate(normalBulletPrefab);
+      _bullet.gameObject.SetActive(false);
+      return _bullet;
    }
 
    private void OnGetNormalBullet(NormalBullet bullet)
