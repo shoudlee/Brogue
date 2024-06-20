@@ -9,7 +9,7 @@ namespace Brogue.UI{
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private DefeatedUI defeatedUI;
-    [SerializeField] private BattleUI battleUI;
+    [SerializeField] BattleUI battleUI;
     // [SerializeField] private DamageNumberManager damageNumberManager;
     
     public void ShowDefeatedUI()
@@ -21,7 +21,10 @@ public class UIManager : MonoBehaviour
     {
         defeatedUI.gameObject.SetActive(false);
     }
-    
+    public void DamageNumberEventHandler(int damge, Vector3 pos)
+    {
+        battleUI.DamageNumberEventHandler(damge, pos);
+    }
     
 }
 }

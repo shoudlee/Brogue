@@ -16,7 +16,6 @@ public class NormalBullet : MonoBehaviour
     [SerializeField] private float beatBack = 1f;
 
     // components
-    private Collider col;
     private TrailRenderer trailRenderer;
 
 
@@ -24,6 +23,7 @@ public class NormalBullet : MonoBehaviour
     private Vector3 movingDistance;
     private int enemyLayer;
     private int enviromentLayer;
+    private int highObstacleLayer;
 
 
     // call this when instantiate
@@ -38,14 +38,10 @@ public class NormalBullet : MonoBehaviour
 
     private void Awake()
     {
-        if (!TryGetComponent<Collider>(out col))
-        {
-            Debug.Log("Not all components set up");
-        }
-
         movingDistance = Vector3.zero;
         enemyLayer = LayerMask.NameToLayer("Enemy");
         enviromentLayer = LayerMask.NameToLayer("Enviroments");
+        highObstacleLayer = LayerMask.NameToLayer("High Obstacle");
         trailRenderer = GetComponentInChildren<TrailRenderer>();
     }
     
@@ -62,7 +58,7 @@ public class NormalBullet : MonoBehaviour
         BulletPool.Instance.ReturnNormalBullet(this);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         int _layer = other.gameObject.layer;
 
@@ -72,12 +68,13 @@ public class NormalBullet : MonoBehaviour
 
             
             DoDamage(_zombie);
+            Debug.Log(other.gameObject.name);
             BeatBack(_zombie);
             // Destroy(gameObject);
             trailRenderer.enabled = false;
             BulletPool.Instance.ReturnNormalBullet(this);
             
-        }else if (_layer == enviromentLayer)
+        }else if (_layer == enviromentLayer || _layer == highObstacleLayer)
         {
             // Destroy(gameObject);
             trailRenderer.enabled = false;

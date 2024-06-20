@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class DamageNumberManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private DamageNumberPrefabUI damageNumberPrefabUI;
 
-    // Update is called once per frame
-    void Update()
+    public DamageNumberPrefabUI DamgeNumberGenerate(int damge, Vector3 pos)
     {
-        
+        var damgeNumberUI = Instantiate(damageNumberPrefabUI, pos, Quaternion.identity);
+        damgeNumberUI.Init(damge);
+        return damgeNumberUI;
     }
 }

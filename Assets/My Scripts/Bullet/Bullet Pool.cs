@@ -27,12 +27,12 @@ public class BulletPool : MonoBehaviour
       }
 
       normalBulletPool = new ObjectPool<NormalBullet>(CreateNormalBullet, OnGetNormalBullet, actionOnRelease:OnReleaseNormalBullet,
-         OnDestroyNormalBullet, defaultCapacity:100,maxSize:500);
+         OnDestroyNormalBullet, defaultCapacity:200,maxSize:800);
    }
 
    private NormalBullet CreateNormalBullet()
    {
-      var _bullet = Instantiate(normalBulletPrefab);
+      var _bullet = Instantiate(normalBulletPrefab,new Vector3(0,-10,0), Quaternion.identity);
       _bullet.gameObject.SetActive(false);
       return _bullet;
    }
@@ -44,6 +44,7 @@ public class BulletPool : MonoBehaviour
 
    private void OnReleaseNormalBullet(NormalBullet bullet)
    {
+      bullet.transform.position = new Vector3(0, -10, 0);
       bullet.gameObject.SetActive(false);
    }
 
@@ -63,5 +64,6 @@ public class BulletPool : MonoBehaviour
       {
          normalBulletPool.Release(bullet);
       }
+      // normalBulletPool.Release(bullet);
    }
 }

@@ -12,7 +12,7 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Image normalPlayerPortrait;
     [SerializeField] private Image deadPlayerPortrait;
     [SerializeField] private TextMeshProUGUI currentGameTime;
-    [SerializeField] private DamageNumberManager damageNumberManager;
+    [SerializeField] DamageNumberManager damageNumberManager;
 
     private void Start()
     {
@@ -45,6 +45,11 @@ public class BattleUI : MonoBehaviour
             deadPlayerPortrait.gameObject.SetActive(true);
         }
     }
-    
+
+    public void DamageNumberEventHandler(int damge, Vector3 pos)
+    {
+        var damageNumberPrefabUI = damageNumberManager.DamgeNumberGenerate(damge, pos);
+        damageNumberPrefabUI.transform.SetParent(this.transform);
+    }
     
 }

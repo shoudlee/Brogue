@@ -18,6 +18,8 @@ namespace Brogue.Zombie
         protected Coroutine navCoro;
         protected ZombieGenerator generator;
         protected bool isDeadAgain;
+        
+
 
         protected void Awake()
         {
@@ -30,6 +32,7 @@ namespace Brogue.Zombie
 
         protected void Start()
         {
+            
             agent.SetDestination(target.position);
             navCoro = StartCoroutine(CoroUpdateNavTargetPosition());
             if (Math.Abs(transform.position.x) > mapRange-5 || Math.Abs(transform.position.z) > mapRange-5)

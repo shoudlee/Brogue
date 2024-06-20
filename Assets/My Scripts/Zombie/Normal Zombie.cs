@@ -27,6 +27,9 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
     // [SerializeField] private float attckAgentStopTime;
     public int currentHp;
     public int maxHp;
+    protected event Action<int , Vector3> getHitEvnet;
+    
+    
     // meshes
     protected SkinnedMeshRenderer skinnedMeshRender;
     
@@ -65,12 +68,14 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
     protected new virtual void Start()
     {
         base.Start();
+        getHitEvnet += GameManager.Instance.DamageNumberEventHandler;
         skinnedMeshRender = GetComponentInChildren<SkinnedMeshRenderer>();
         animator = GetComponent<Animator>();
         animatorWalkingString = Animator.StringToHash("WalkingSpeed");
         animatorDyingString = Animator.StringToHash("dying");
         animatorAttackingString = Animator.StringToHash("attacking");
         skinnedMeshRender.sharedMesh = GameManager.Instance.GetRandomZombieMesh("Zombie");
+        
     }
 
     protected virtual void Update()
@@ -198,6 +203,7 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
 
     public void GetHit(int damage)
     {
+        getHitEvnet?.Invoke(damage, Camera.main.WorldToScreenPoint(transform.position));
         currentHp -= damage;
         if (currentHp < 0)
         {
@@ -241,6 +247,7 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
     private IEnumerator CoroDestroy()
     {
         yield return new WaitForSeconds(10);
+        getHitEvnet -= GameManager.Instance.DamageNumberEventHandler;
         isDeadBodyBeginToSink = true;
         yield return new WaitForSeconds(3);
         Destroy(gameObject);

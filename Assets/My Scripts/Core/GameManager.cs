@@ -74,4 +74,9 @@ public class GameManager : MonoBehaviour
     {
         uiManager.ShowDefeatedUI();
     }
+    
+    public void DamageNumberEventHandler(int damge, Vector3 pos)
+    {
+        uiManager.DamageNumberEventHandler(damge, pos);
+    }
 }
