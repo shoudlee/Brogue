@@ -149,5 +149,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageText: {fileID: 3910931786318462019}
-  upSpeed: 3
-  lifeTime: 10
+  upSpeed: 8
+  lifeTime: 0.8

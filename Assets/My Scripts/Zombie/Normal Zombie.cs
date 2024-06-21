@@ -203,7 +203,7 @@ public class NormalZombie : BaseEnemyClass, IBattleProperties
 
     public void GetHit(int damage)
     {
-        getHitEvnet?.Invoke(damage, Camera.main.WorldToScreenPoint(transform.position));
+        getHitEvnet?.Invoke(damage, Camera.main.WorldToScreenPoint(transform.position) + new Vector3(80,100,0));
         currentHp -= damage;
         if (currentHp < 0)
         {
