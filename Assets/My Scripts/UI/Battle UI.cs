@@ -37,7 +37,8 @@ public class BattleUI : MonoBehaviour
         float radio = GameManager.Instance.GetPlayerHealthRadio();
         if (radio > 0)
         {
-            healthMask.sizeDelta = new Vector2(healthMask.sizeDelta.x, (1-radio) * 100);
+            // times healthMask.Height
+            healthMask.sizeDelta = new Vector2(healthMask.sizeDelta.x, (1-radio) * 250);
         }
         else if (normalPlayerPortrait.IsActive())
         {
